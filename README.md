@@ -19,7 +19,7 @@ rabbitmq-plugins disable rabbitmq_management 插件卸载
 4.启动rabbitmq ：rabbitmq-server start
 5.浏览器输入http://localhost:15672即可访问，默认账户和密码都是guest
 6.查看rabbitmq状态：rabbitmqctl status，rabbitmq-server stop，rabbitmq-server start
-
+7.安装go rabbitmq：go get github.com/streadway/amqp
 工作模式介绍：
 1.simple模式，最简单常用的模式：
   生产者（Producer）->rabbitmq->消费者(consumer)
