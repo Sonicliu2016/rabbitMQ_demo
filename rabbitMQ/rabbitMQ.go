@@ -20,13 +20,13 @@ type RabbitMQ struct {
 
 //创建结构体实例
 func NewRabbitMQ(queueName, exchange, key string) *RabbitMQ {
-	rabbitMq := &RabbitMQ{QueueName: queueName, Exchange: exchange, Key: key, MqUrl: mqUrl}
+	rabbitMq :=  &RabbitMQ{QueueName: queueName, Exchange: exchange, Key: key, MqUrl: mqUrl}
 	var err error
 	//创建rabbitmq连接
-	rabbitMq.conn,err = amqp.Dial(rabbitMq.MqUrl)
-	rabbitMq.failOnErr(err,"创建连接错误")
-	rabbitMq.channel,err = rabbitMq.conn.Channel()
-	rabbitMq.failOnErr(err,"获取channel失败")
+	rabbitMq.conn, err = amqp.Dial(rabbitMq.MqUrl)
+	rabbitMq.failOnErr(err, "创建连接错误")
+	rabbitMq.channel, err = rabbitMq.conn.Channel()
+	rabbitMq.failOnErr(err, "获取channel失败")
 	return rabbitMq
 }
 

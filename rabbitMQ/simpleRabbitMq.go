@@ -5,15 +5,13 @@ import (
 	"github.com/streadway/amqp"
 )
 
-//简单模式的rabbitMq
-
 //创建简单模式下rabbitMq实例
-func NewRabbitmqSimple(queueName string) *RabbitMQ {
+func NewSimpleRabbitmq(queueName string) *RabbitMQ {
 	return NewRabbitMQ(queueName, "", "")
 }
 
-//生产消息代码
-func (r *RabbitMQ) PublishSimple(msg string) {
+//发送消息代码
+func (r *RabbitMQ) PublishSimpleMsg(msg string) {
 	//1.申请队列，如果队列不存在，则会自动创建，如果存在，则跳过创建，保证队列存在，消息能发到队列中
 	_, err := r.channel.QueueDeclare(
 		r.QueueName,
@@ -29,7 +27,7 @@ func (r *RabbitMQ) PublishSimple(msg string) {
 		nil,
 	)
 	if err != nil {
-		fmt.Println("err:", err)
+		fmt.Println("QueueDeclare err:", err)
 	}
 	//2.发送消息到队列
 	r.channel.Publish(
@@ -47,7 +45,7 @@ func (r *RabbitMQ) PublishSimple(msg string) {
 }
 
 //消费消息
-func (r *RabbitMQ) ConsumeSimple() {
+func (r *RabbitMQ) ConsumeSimpleMsg() {
 	//1.申请队列，如果队列不存在，则会自动创建，如果存在，则跳过创建，保证队列存在，消息能发到队列中
 	_, err := r.channel.QueueDeclare(
 		r.QueueName,
@@ -91,5 +89,6 @@ func (r *RabbitMQ) ConsumeSimple() {
 			fmt.Println("msg:", string(d.Body))
 		}
 	}()
+	fmt.Println("wait for msg!")
 	<-forever
 }
